@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Monster Slayer</h1>
+    </header>
+    <div id="game">
+      <section id="monster" class="container">
+        <h2>Monster Health</h2>
+        <div class="healthbar">
+          <div class="healthbar__value"></div>
+        </div>
+      </section>
+      <section id="player" class="container">
+        <h2>Your Health</h2>
+        <div class="healthbar">
+          <div class="healthbar__value playerValue"></div>
+        </div>
+      </section>
+      <section id="controls">
+        <button id="attack-button">ATTACK</button>
+        <button id="special">SPECIAL ATTACK</button>
+        <button id="heal">HEAL</button>
+        <button id="give-up">SURRENDER</button>
+      </section>
+      <section class="container">
+        <h2 id="log">Battle Log</h2>
+        <ul class="monster-log"></ul>
+        <ul class="player-log"></ul>
+      </section>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
