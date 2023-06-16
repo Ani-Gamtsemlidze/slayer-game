@@ -18,7 +18,14 @@ let healing = document.querySelector(".healing-log");
 let playerLiText;
 let monsterLiText;
 
+let attackClick = 0;
+
+let monsterPoint = document.getElementById("monster-point");
+let playerPoint = document.getElementById("player-point");
+
 attackButton.addEventListener("click", function () {
+  attackClick++;
+
   let attackNum = Math.trunc(Math.random() * 20) + 1;
   let attackPlayerNum = Math.trunc(Math.random() * 20) + 1;
   let newMonsterHealth = monsterHealth - attackNum;
@@ -37,13 +44,35 @@ attackButton.addEventListener("click", function () {
   document.querySelector(".list").appendChild(playerLiText);
   document.querySelector(".list").appendChild(monsterLiText);
 
+  const list = document.querySelector(".list");
+
+  // insert before
+  list.insertBefore(playerLiText, list.firstChild);
+  list.insertBefore(monsterLiText, list.firstChild);
+
   monsterLiText.innerHTML = `MONSTER HIT THE PLAYER FOR ${attackPlayerNum} DAMAGE`;
+
+  let damageValue = parseInt(monsterLiText.innerHTML.split(" ")[5]);
+
+  // let monsterSum = damageValue + damageValue;
+  monsterPoint.innerHTML = damageValue;
+  // console.log(damageValue + damageValue);
+
+  monsterLiText.classList.add("demo");
+
   monsterLiText.style.color = `#d02a2a`;
   monsterLiText.style.fontSize = `20px`;
 
-  playerLiText.innerHTML = `PLAYER HIT THE MONSTER FOR ${attackNum} DAMAGE`;
+  let playerSpan = attackNum;
+
+  playerLiText.innerHTML = `PLAYER HIT THE MONSTER FOR ${playerSpan} DAMAGE`;
+  playerPoint.innerHTML = playerSpan + playerSpan;
+  playerLiText.classList.add("demo");
   playerLiText.style.color = `#00a876`;
+
   playerLiText.style.fontSize = `20px`;
+
+  console.log(`Attack button clicked ${attackClick} times.`);
 });
 
 specialAttackButton.addEventListener("click", function () {
@@ -60,11 +89,6 @@ specialAttackButton.addEventListener("click", function () {
 
     monster.style.width = `${monsterHealth}%`;
     player.style.width = `${yourHealth}%`;
-
-    //   monsterText.innerHTML = `MONSTER HIT THE PLAYER FOR ${attackNum} DAMAGE
-    //   `;
-    //   playerText.innerHTML = `PLAYER HIT THE MONSTER FOR ${attackPlayerNum} DAMAGE
-    // `;
   }
   attackCount++;
   specialAttackButton.disabled = true;
@@ -95,6 +119,7 @@ heal.addEventListener("click", function () {
 surrender.addEventListener("click", function () {
   const confirmed = confirm("GIVE UP?");
   if (confirmed) {
+    location.reload();
     startAgain();
     // playerLiText.removeChild();
     // monsterLiText.removeChild();
@@ -102,6 +127,9 @@ surrender.addEventListener("click", function () {
 });
 
 function startAgain() {
+  location.reload();
+
+  attackClick = 0;
   monsterHealth = 100;
   yourHealth = 100;
 
@@ -125,7 +153,9 @@ function startAgain() {
   specialAttackButton.disabled = false;
   heal.disabled = false;
 
-  healing.innerHTML = ``;
+  // healing.innerHTML = ``;
+
+  // myFunction();
 }
 
 function clickCounting() {

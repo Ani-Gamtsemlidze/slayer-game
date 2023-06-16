@@ -99,6 +99,10 @@ button:disabled {
   padding: 0;
 }
 
+.points {
+  font-size: 15px;
+}
+
 li {
   margin: 0.5rem 0;
   list-style: none;
