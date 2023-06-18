@@ -3,42 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vue Basics</title>
+    <title>Monster Slayer</title>
 
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header>
-      <h1>Monster Slayer</h1>
+      <h1 class="monster-slayer">Monster Slayer</h1>
     </header>
     <div id="game">
-      <section id="monster" class="container">
-        <h2>Monster Health</h2>
-        <div class="healthbar">
-          <div class="healthbar__value"></div>
+      <div class="monster-main">
+        <div class="monster-box">
+          <h2 id="monsterWon">MONSTER WON!</h2>
         </div>
-        <div class="monster-points points">
-          <h2>Monster Points:<span id="monster-point"> 0 </span></h2>
+        <section id="monster" class="container">
+          <h2>Monster Health</h2>
+          <!-- <div class="monster-winner hidden">MONSTER WON</div> -->
+
+          <div class="healthbar">
+            <div class="healthbar__value"></div>
+          </div>
+          <div class="monster-points points">
+            <h2 class="points">
+              Monster Point: <span id="monster-point">0</span>
+            </h2>
+          </div>
+        </section>
+      </div>
+
+      <div class="player-main">
+        <div class="player-box">
+          <h2 id="youWon">YOU WON!</h2>
         </div>
-        <div class="monster-winner hidden">MONSTER WON</div>
-      </section>
-      <section id="player" class="container">
-        <h2>Your Health</h2>
-        <div class="healthbar">
-          <div class="healthbar__value playerValue"></div>
+        <div class="draw-box">
+          <h2 id="draw">IT'S A DRAW!</h2>
         </div>
-        <div class="player-points points">
-          <h2>Your Points:<span id="player-point"> 0 </span></h2>
-        </div>
-        <div class="player-winner hidden">YOU WON</div>
-      </section>
+
+        <section id="player" class="container">
+          <h2>Your Health</h2>
+          <!-- <div class="player-winner hidden">YOU WON</div> -->
+          <div class="healthbar">
+            <div class="healthbar__value playerValue"></div>
+          </div>
+          <div class="player-points points">
+            <h2 class="health-points">
+              Your Point: <span id="player-point">0</span>
+            </h2>
+          </div>
+        </section>
+      </div>
       <section id="controls">
         <button id="attack-button">ATTACK</button>
         <button id="special">SPECIAL ATTACK</button>
         <button id="heal">HEAL</button>
         <button id="give-up">SURRENDER</button>
       </section>
-      <section class="container">
+      <section class="container scroll">
         <h2 id="log">Battle Log</h2>
         <ul class="list">
           <!-- <li class="monster-log"></li>

@@ -8,6 +8,10 @@ heal = document.querySelector("#heal");
 
 surrender = document.querySelector("#give-up");
 
+let header = document.querySelector("header");
+
+// document.querySelector(".monster-box").style.display = "block";
+
 let gameStart = true;
 
 let monsterHealth = 100;
@@ -25,11 +29,12 @@ let playerPoint = document.getElementById("player-point");
 let monsterPoints = 0;
 let playerPoints = 0;
 
-let playerLiText;
-let monsterLiText;
+let playerLiTextArray = [];
+let monsterLiTextArray = [];
 
 let monsterWon = document.querySelector(".monster-winner");
 let playerWon = document.querySelector(".player-winner");
+
 // ATTACK button function
 attackButton.addEventListener("click", function () {
   attackClick++;
@@ -48,6 +53,8 @@ attackButton.addEventListener("click", function () {
 
   playerLiText = document.createElement("li");
   monsterLiText = document.createElement("li");
+  playerLiTextArray.push(playerLiText);
+  monsterLiTextArray.push(monsterLiText);
 
   document.querySelector(".list").appendChild(playerLiText);
   document.querySelector(".list").appendChild(monsterLiText);
@@ -65,19 +72,11 @@ attackButton.addEventListener("click", function () {
   monsterLiText.classList.add("demo");
   playerLiText.classList.add("demo");
 
-  surrender.addEventListener("click", function () {
-    playerLiText.remove();
-    monsterLiText.remove();
-  });
+  document.querySelector(".scroll").style.height = "200px";
+  document.querySelector(".scroll").style.overflowY = "scroll";
 
-  // if (monsterHealth < 0) {
-  //   monsterHealth = 0;
-  //   playerLiText.remove();
-  //   monsterLiText.remove();
-  // }
-
-  monsterWon.style.display = "none";
-  playerWon.style.display = "none";
+  // monsterWon.style.display = "none";
+  // playerWon.style.display = "none";
 
   monsterLiText.style.color = `#d02a2a`;
   monsterLiText.style.fontSize = `20px`;
@@ -85,12 +84,22 @@ attackButton.addEventListener("click", function () {
   // player texts
 
   playerLiText.innerHTML = `PLAYER HIT THE MONSTER FOR ${attackNum} DAMAGE`;
-  playerLiText.classList.add("demo");
   playerLiText.style.color = `#00a876`;
 
   playerLiText.style.fontSize = `20px`;
 
+  document.querySelector(".monster-box").style.opacity = "0";
+  document.querySelector(".player-box").style.opacity = "0";
+
   console.log(`Attack button clicked ${attackClick} times.`);
+
+  attackButton.style.backgroundColor = "";
+  attackButton.style.borderColor = "";
+  attackButton.style.transform = "";
+
+  header.style.backgroundColor = "";
+
+  document.querySelector(".draw-box").style.opacity = "0";
 });
 
 // SPECIAL attak function
@@ -119,6 +128,9 @@ specialAttackButton.addEventListener("click", function () {
 
     const list = document.querySelector(".list");
 
+    // playerLiTextArray.push(playerLiText);
+    // monsterLiTextArray.push(monsterLiText);
+
     monsterLiText.innerHTML = `MONSTER HIT THE PLAYER FOR ${attackPlayerNum} DAMAGE`;
     monsterLiText.classList.add("demo");
     monsterLiText.style.color = `#d02a2a`;
@@ -130,7 +142,7 @@ specialAttackButton.addEventListener("click", function () {
 
     playerLiText.style.fontSize = `20px`;
   }
-  playerWon.style.display = "none";
+  // playerWon.style.display = "none";
 
   attackCount++;
   specialAttackButton.disabled = true;
@@ -178,9 +190,10 @@ surrender.addEventListener("click", function () {
     playerPoint.innerHTML = playerPoints;
     monsterPoints = 0;
     monsterPoint.innerHTML = monsterPoints;
+
+    document.querySelector(".monster-box").style.opacity = "0";
+    document.querySelector(".player-box").style.opacity = "0";
     startAgain();
-    // playerLiText.removeChild();
-    // monsterLiText.removeChild();
   }
 });
 
@@ -206,6 +219,10 @@ function startAgain() {
   attackButton.disabled = false;
   specialAttackButton.disabled = false;
   heal.disabled = false;
+
+  document.querySelector(".scroll").style.height = "";
+
+  removeLiTexts();
 }
 
 // determine winner and looser
@@ -216,21 +233,36 @@ function clickCounting() {
     if (yourHealth < 0) {
       yourHealth = 0;
       setTimeout(function () {
-        alert(`It's a draw`);
+        // alert(`It's a draw`);
+        // document.querySelector(".monster-box").style.opacity = "1";
+        // document.querySelector("#youWon").innerHTML = "IT'S A DRAW";
+        document.querySelector(".draw-box").style.opacity = "1";
+        // document.querySelector(".player-box").style.top = "-5%";
+        // document.querySelector(".player-box").style.color = "black";
+        // document.querySelector("#youWon").innerHTML = "IT'S A DRAW!";
         startAgain();
       }, 1000);
       attackButton.disabled = true;
     } else {
       setTimeout(function () {
+        document.querySelector(".player-box").style.opacity = "1";
         // alert("YOU won");
-        playerWon.style.display = "block";
-        playerWon.style.display = "flex";
-        playerWon.style.justifyContent = "flex-start";
+        // document.querySelector(".monster-box").style.display = "block";
+        // playerWon.style.display = "flex";
+        // playerWon.style.justifyContent = "flex-end";
 
         playerPoints++;
         playerPoint.innerHTML = playerPoints;
         if (playerPoint.innerHTML == 5) {
-          alert("GAME IS OVER. YOU WON");
+          document.querySelector(".monster-slayer").innerHTML =
+            "YOU ARE A WINNER. PLAY AGAIN!";
+          attackButton.style.backgroundColor = "#00a876";
+          attackButton.style.borderColor = "#00a876";
+          attackButton.style.transform = "scale(1.1)";
+          document.querySelector("header").style.backgroundColor = "#00a876";
+
+          document.querySelector(".monster-box").style.opacity = "0";
+          document.querySelector(".player-box").style.opacity = "0";
 
           gameOverPoints();
         }
@@ -243,15 +275,27 @@ function clickCounting() {
   } else if (yourHealth < 0) {
     yourHealth = 0;
     setTimeout(function () {
+      document.querySelector(".monster-box").style.opacity = "1";
+
       // alert("MONSTER won");
-      monsterWon.style.display = "block";
-      monsterWon.style.display = "flex";
-      monsterWon.style.justifyContent = "flex-start";
+      // monsterWon.style.display = "block";
+      // monsterWon.style.display = "flex";
+      // monsterWon.style.justifyContent = "flex-end";
 
       monsterPoints++;
       monsterPoint.innerHTML = monsterPoints;
       if (monsterPoint.innerHTML == 5) {
-        alert("GAME IS OVER. MONSTER WON");
+        document.querySelector(".monster-slayer").innerHTML =
+          "MONSTER IS A WINNER. PLAY AGAIN!";
+        document.querySelector("header").style.backgroundColor = "#d02a2a";
+        attackButton.style.backgroundColor = "#d02a2a";
+
+        document.querySelector(".monster-box").style.opacity = "0";
+        document.querySelector(".player-box").style.opacity = "0";
+
+        attackButton.style.backgroundColor = "#d02a2a";
+        attackButton.style.borderColor = "#d02a2a";
+        attackButton.style.transform = "scale(1.1)";
         gameOverPoints();
       }
       startAgain();
@@ -268,16 +312,13 @@ function gameOverPoints() {
   playerPoint.innerHTML = playerPoints;
 }
 
-// listNum = 0;
-// function removeListElements() {
-//   listNum++;
-//   const playerLi = document.querySelector(".list li:nth-child(1)")
-//   const monsterLi = document.querySelector(".list li:nth-child(2)");
-//   if (playerLi) {
-//     playerLi.remove();
-//   }
+function removeLiTexts() {
+  for (let i = 0; i < playerLiTextArray.length; i++) {
+    playerLiTextArray[i].remove();
+    monsterLiTextArray[i].remove();
+  }
 
-//   if (monsterLi) {
-//     monsterLi.remove();
-//   }
-// }
+  // Clear the arrays
+  playerLiTextArray = [];
+  monsterLiTextArray = [];
+}
