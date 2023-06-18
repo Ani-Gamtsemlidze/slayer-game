@@ -277,11 +277,6 @@ function clickCounting() {
     setTimeout(function () {
       document.querySelector(".monster-box").style.opacity = "1";
 
-      // alert("MONSTER won");
-      // monsterWon.style.display = "block";
-      // monsterWon.style.display = "flex";
-      // monsterWon.style.justifyContent = "flex-end";
-
       monsterPoints++;
       monsterPoint.innerHTML = monsterPoints;
       if (monsterPoint.innerHTML == 5) {
