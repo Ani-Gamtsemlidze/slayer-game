@@ -247,3 +247,16 @@ li {
 .log--heal {
   color: green;
 }
+
+.player-winner {
+  color: green;
+  justify-content: flex-start;
+  display: none;
+  transition: 0.3s;
+}
+.monster-winner {
+  color: red;
+  justify-content: flex-start;
+  display: none;
+  transition: 0.3s;
+}
