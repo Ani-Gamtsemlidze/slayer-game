@@ -105,6 +105,7 @@ attackButton.addEventListener("click", function () {
 // SPECIAL attak function
 specialAttackButton.addEventListener("click", function () {
   if (attackCount < 1) {
+    attackCount++;
     let attackNum = Math.trunc(Math.random() * 40) + 1;
     let attackPlayerNum = Math.trunc(Math.random() * 40) + 1;
     let newMonsterHealth = monsterHealth - attackNum;
@@ -128,6 +129,9 @@ specialAttackButton.addEventListener("click", function () {
 
     const list = document.querySelector(".list");
 
+    playerLiTextArray.push(playerLiText);
+    monsterLiTextArray.push(monsterLiText);
+
     // playerLiTextArray.push(playerLiText);
     // monsterLiTextArray.push(monsterLiText);
 
@@ -141,6 +145,9 @@ specialAttackButton.addEventListener("click", function () {
     playerLiText.style.color = `#00a876`;
 
     playerLiText.style.fontSize = `20px`;
+
+    list.insertBefore(playerLiText, list.firstChild);
+    list.insertBefore(monsterLiText, list.firstChild);
   }
   // playerWon.style.display = "none";
 
@@ -156,6 +163,7 @@ let healingCount = 0;
 
 heal.addEventListener("click", function () {
   if (healingCount < 1) {
+    attackClick++;
     let attackNum = Math.trunc(Math.random() * 20) + 1;
 
     let newPlayerHealth = yourHealth + attackNum;
@@ -169,7 +177,10 @@ heal.addEventListener("click", function () {
     document.querySelector(".list").appendChild(playerLiText);
 
     const list = document.querySelector(".list");
-    playerLiText.innerHTML = `PLAYER HEALS FOR ${attackNum} times`;
+
+    playerLiTextArray.push(playerLiText);
+
+    playerLiText.innerHTML = `PLAYER HEALS FOR ${attackNum} TIMES`;
     playerLiText.style.color = `#00a876`;
 
     playerLiText.style.fontSize = `20px`;
@@ -177,7 +188,7 @@ heal.addEventListener("click", function () {
   }
   heal.disabled = true;
   healingCount++;
-  healing.innerHTML = `PLAYER GAINS ${yourHealth} HP`;
+  // healing.innerHTML = `PLAYER GAINS ${yourHealth} HP`;
 });
 
 // giving up function
@@ -266,7 +277,6 @@ function clickCounting() {
 
           gameOverPoints();
         }
-
         startAgain();
       }, 1000);
 
@@ -307,10 +317,27 @@ function gameOverPoints() {
   playerPoint.innerHTML = playerPoints;
 }
 
+// function removeLiTexts() {
+//   for (let i = 0; i < playerLiTextArray.length; i++) {
+//     playerLiTextArray[i].remove();
+//     monsterLiTextArray[i].remove();
+//   }
+
+//   // Clear the arrays
+//   playerLiTextArray = [];
+//   monsterLiTextArray = [];
+// }
+
 function removeLiTexts() {
+  const list = document.querySelector(".list");
+
   for (let i = 0; i < playerLiTextArray.length; i++) {
-    playerLiTextArray[i].remove();
-    monsterLiTextArray[i].remove();
+    if (playerLiTextArray[i]) {
+      playerLiTextArray[i].remove();
+    }
+    if (monsterLiTextArray[i]) {
+      monsterLiTextArray[i].remove();
+    }
   }
 
   // Clear the arrays
