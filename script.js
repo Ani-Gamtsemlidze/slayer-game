@@ -98,6 +98,8 @@ attackButton.addEventListener("click", function () {
   attackButton.style.transform = "";
 
   header.style.backgroundColor = "";
+  document.querySelector(".monster-slayer").innerHTML = "Monster Slayer";
+  // document.querySelector(".monster-slayer").style.fontSize = "";
 
   document.querySelector(".draw-box").style.opacity = "0";
 });
@@ -248,6 +250,7 @@ function clickCounting() {
         // document.querySelector(".monster-box").style.opacity = "1";
         // document.querySelector("#youWon").innerHTML = "IT'S A DRAW";
         document.querySelector(".draw-box").style.opacity = "1";
+        document.querySelector(".mobile-box").style.opacity = "0";
         // document.querySelector(".player-box").style.top = "-5%";
         // document.querySelector(".player-box").style.color = "black";
         // document.querySelector("#youWon").innerHTML = "IT'S A DRAW!";
@@ -257,16 +260,19 @@ function clickCounting() {
     } else {
       setTimeout(function () {
         document.querySelector(".player-box").style.opacity = "1";
+        document.querySelector(".mobile-box").style.opacity = "0";
+
         // alert("YOU won");
-        // document.querySelector(".monster-box").style.display = "block";
-        // playerWon.style.display = "flex";
-        // playerWon.style.justifyContent = "flex-end";
 
         playerPoints++;
         playerPoint.innerHTML = playerPoints;
-        if (playerPoint.innerHTML == 5) {
+        if (playerPoint.innerHTML == 1) {
           document.querySelector(".monster-slayer").innerHTML =
             "YOU ARE A WINNER. PLAY AGAIN!";
+          // document.querySelector(".monster-slayer").style.fontSize = "20px";
+
+          document.querySelector(".mobile-box").style.opacity = "1";
+
           attackButton.style.backgroundColor = "#00a876";
           attackButton.style.borderColor = "#00a876";
           attackButton.style.transform = "scale(1.1)";
@@ -286,14 +292,17 @@ function clickCounting() {
     yourHealth = 0;
     setTimeout(function () {
       document.querySelector(".monster-box").style.opacity = "1";
+      document.querySelector(".mobile-box").style.opacity = "0";
 
       monsterPoints++;
       monsterPoint.innerHTML = monsterPoints;
-      if (monsterPoint.innerHTML == 5) {
+      if (monsterPoint.innerHTML == 1) {
         document.querySelector(".monster-slayer").innerHTML =
           "MONSTER IS A WINNER. PLAY AGAIN!";
+        // document.querySelector(".monster-slayer").style.fontSize = "20px";
         document.querySelector("header").style.backgroundColor = "#d02a2a";
         attackButton.style.backgroundColor = "#d02a2a";
+        document.querySelector(".mobile-box").style.opacity = "1";
 
         document.querySelector(".monster-box").style.opacity = "0";
         document.querySelector(".player-box").style.opacity = "0";
@@ -344,3 +353,29 @@ function removeLiTexts() {
   playerLiTextArray = [];
   monsterLiTextArray = [];
 }
+
+// Define the media query
+var mediaQuery = window.matchMedia("(max-width: 992px)");
+
+// Define a callback function to be executed when the media query matches
+function handleMediaQueryChange(mediaQuery) {
+  if (mediaQuery.matches) {
+    attackButton.addEventListener("click", function () {
+      document.querySelector(".mobile-box").style.opacity = "1";
+    });
+    document.querySelector(".player-main").style.marginTop = "100px";
+    document.querySelector(".monster-slayer").style.fontSize = "18px";
+
+    console.log("Viewport width is less than or equal to 992px");
+    // Add your code here for handling the media query
+  } else {
+    console.log("Viewport width is greater than 992px");
+    // Add your code here for handling the condition
+  }
+}
+
+// // Add an event listener to the media query
+// mediaQuery.addListener(handleMediaQueryChange);
+
+// // Call the callback function initially to handle the initial state of the media query
+handleMediaQueryChange(mediaQuery);
