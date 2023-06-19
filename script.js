@@ -266,7 +266,7 @@ function clickCounting() {
 
         playerPoints++;
         playerPoint.innerHTML = playerPoints;
-        if (playerPoint.innerHTML == 1) {
+        if (playerPoint.innerHTML == 5) {
           document.querySelector(".monster-slayer").innerHTML =
             "YOU ARE A WINNER. PLAY AGAIN!";
           // document.querySelector(".monster-slayer").style.fontSize = "20px";
@@ -296,7 +296,7 @@ function clickCounting() {
 
       monsterPoints++;
       monsterPoint.innerHTML = monsterPoints;
-      if (monsterPoint.innerHTML == 1) {
+      if (monsterPoint.innerHTML == 5) {
         document.querySelector(".monster-slayer").innerHTML =
           "MONSTER IS A WINNER. PLAY AGAIN!";
         // document.querySelector(".monster-slayer").style.fontSize = "20px";
